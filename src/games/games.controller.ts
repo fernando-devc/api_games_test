@@ -10,4 +10,10 @@ export class GamesController {
   getAll(@Query() params: GetGamesDto) {
     return this.gamesService.getAll(params);
   }
+
+  @Get(':id')
+  getById(@Query('id') id: string) {
+    return this.gamesService.getById(id);
+  }
+  
 }
