@@ -1,0 +1,18 @@
+model Game {
+    id           String   @id @default(uuid())
+    title        String   @unique
+    description  String
+    genre        String
+    platformType String
+    publisher    String
+    developer    String
+    releaseDate  DateTime
+    rating       Float?
+    price        Float
+    imageUrl     String?
+
+    platform     Platform[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
