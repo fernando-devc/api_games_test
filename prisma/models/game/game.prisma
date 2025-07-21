@@ -11,7 +11,7 @@ model Game {
     price        Float
     imageUrl     String?
 
-    platform     Platform[]
+    platforms    Platform[] @relation("GamePlatforms")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

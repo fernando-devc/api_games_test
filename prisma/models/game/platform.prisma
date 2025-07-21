@@ -2,5 +2,5 @@ model Platform {
     id        String   @id @default(uuid())
     name      String   @unique
 
-    Game Game[]
+    games Game[] @relation("GamePlatforms")
 }
