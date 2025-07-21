@@ -8,15 +8,17 @@ export class GamesService {
 
     async getAll(params: GetGamesDto) {
         const { search, page = 1, limit = 10 } = params;
-        const skip = (page - 1) * limit;
+        const pageNum = parseInt(page.toString(), 10) || 1;
+        const limitNum = parseInt(limit.toString(), 10) || 10;
+        const skip = (pageNum - 1) * limitNum;
 
         const where = search
             ? {
                 OR: [
-                    { title: { contains: search, mode: 'insensitive' } },
-                    { genre: { contains: search, mode: 'insensitive' } },
-                    { publisher: { contains: search, mode: 'insensitive' } },
-                    { developer: { contains: search, mode: 'insensitive' } },
+                    { title: { contains: search } },
+                    { genre: { contains: search } },
+                    { publisher: { contains: search } },
+                    { developer: { contains: search } },
                 ],
             }
             : {};
@@ -26,7 +28,7 @@ export class GamesService {
                 where,
                 include: { platforms: true },
                 skip,
-                take: limit,
+                take: limitNum,
                 orderBy: { createdAt: 'desc' },
             }),
             this.prisma.game.count({ where }),
@@ -35,10 +37,10 @@ export class GamesService {
         return {
             data: games,
             pagination: {
-                page,
-                limit,
+                page: pageNum,
+                limit: limitNum,
                 total,
-                totalPages: Math.ceil(total / limit),
+                totalPages: Math.ceil(total / limitNum),
             },
         };
     }
