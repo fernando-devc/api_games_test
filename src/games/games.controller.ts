@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { GetGamesDto } from './dto/get-games.dto';
 
@@ -12,7 +12,8 @@ export class GamesController {
   }
 
   @Get(':id')
-  getById(@Query('id') id: string) {
+  getById(@Param('id') id: string) {
+    // console.log('getById called with id:', id);
     return this.gamesService.getById(id);
   }
   

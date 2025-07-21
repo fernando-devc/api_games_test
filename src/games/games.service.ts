@@ -46,7 +46,7 @@ export class GamesService {
     }
 
     async getById(id: string) {
-        return this.prisma.game.findUnique({
+        return this.prisma.game.findUniqueOrThrow({
             where: { id },
             include: { platforms: true },
         });
